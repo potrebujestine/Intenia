@@ -4,6 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Twitter, Facebook, Instagram, Linkedin, Github } from "lucide-react"
 import { useState, useRef, useEffect } from "react"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 export default function ModernFooter() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -11,85 +12,139 @@ export default function ModernFooter() {
   const [revealRadius, setRevealRadius] = useState(0)
   const [revealOpacity, setRevealOpacity] = useState(0)
   const logoContainerRef = useRef<HTMLDivElement>(null)
+  const footerRef = useRef<HTMLElement>(null)
+  const isMobile = useIsMobile()
   const hoverZoneRadius = 900
   const maxRevealRadius = 1000
   const minRevealRadius = 300
 
+  const revealStartOffset = -300
+  const revealEndOffset = 0
+  const revealSensitivity = 0.8
+
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!logoContainerRef.current) return
+    if (isMobile) {
+      const handleScroll = () => {
+        if (!logoContainerRef.current || !footerRef.current) return
 
-      const rect = logoContainerRef.current.getBoundingClientRect()
-      const mouseX = e.clientX
-      const mouseY = e.clientY
+        const rect = logoContainerRef.current.getBoundingClientRect()
+        const footerRect = footerRef.current.getBoundingClientRect()
+        const viewportHeight = window.innerHeight
 
-      const containerLeft = rect.left
-      const containerRight = rect.right
-      const containerTop = rect.top
-      const containerBottom = rect.bottom
+        const footerTop = footerRect.top
+        const footerBottom = footerRect.bottom
+        const footerHeight = footerRect.height
 
-      const isMouseInside = mouseX >= containerLeft && mouseX <= containerRight &&
-        mouseY >= containerTop && mouseY <= containerBottom
+        const isFooterVisible = footerBottom > 0 && footerTop < viewportHeight
 
-      let distanceToContainer = 0
-      let closestX = mouseX
-      let closestY = mouseY
+        if (isFooterVisible) {
+          const footerVisibleHeight = Math.min(viewportHeight - footerTop, footerHeight)
+          const totalRevealDistance = viewportHeight + revealStartOffset
+          const scrollProgress = Math.max(0, Math.min(1, (footerVisibleHeight + revealStartOffset) / totalRevealDistance * revealSensitivity))
 
-      if (isMouseInside) {
-        closestX = mouseX
-        closestY = mouseY
-        distanceToContainer = 0
-      } else {
-        if (mouseX < containerLeft) {
-          closestX = containerLeft
-        } else if (mouseX > containerRight) {
-          closestX = containerRight
+          setIsHovering(true)
+
+          const revealX = rect.width / 2
+          const revealY = Math.max(0, Math.min(rect.height, rect.height * scrollProgress))
+
+          setMousePosition({ x: revealX, y: revealY })
+
+          const proximity = scrollProgress
+          const radius = minRevealRadius + (maxRevealRadius - minRevealRadius) * proximity
+          const opacity = proximity
+
+          setRevealRadius(radius)
+          setRevealOpacity(opacity)
         } else {
+          setIsHovering(false)
+          setRevealRadius(0)
+          setRevealOpacity(0)
+        }
+      }
+
+      handleScroll()
+      window.addEventListener("scroll", handleScroll, { passive: true })
+      window.addEventListener("resize", handleScroll, { passive: true })
+      return () => {
+        window.removeEventListener("scroll", handleScroll)
+        window.removeEventListener("resize", handleScroll)
+      }
+    } else {
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!logoContainerRef.current) return
+
+        const rect = logoContainerRef.current.getBoundingClientRect()
+        const mouseX = e.clientX
+        const mouseY = e.clientY
+
+        const containerLeft = rect.left
+        const containerRight = rect.right
+        const containerTop = rect.top
+        const containerBottom = rect.bottom
+
+        const isMouseInside = mouseX >= containerLeft && mouseX <= containerRight &&
+          mouseY >= containerTop && mouseY <= containerBottom
+
+        let distanceToContainer = 0
+        let closestX = mouseX
+        let closestY = mouseY
+
+        if (isMouseInside) {
           closestX = mouseX
-        }
-
-        if (mouseY < containerTop) {
-          closestY = containerTop
-        } else if (mouseY > containerBottom) {
-          closestY = containerBottom
-        } else {
           closestY = mouseY
+          distanceToContainer = 0
+        } else {
+          if (mouseX < containerLeft) {
+            closestX = containerLeft
+          } else if (mouseX > containerRight) {
+            closestX = containerRight
+          } else {
+            closestX = mouseX
+          }
+
+          if (mouseY < containerTop) {
+            closestY = containerTop
+          } else if (mouseY > containerBottom) {
+            closestY = containerBottom
+          } else {
+            closestY = mouseY
+          }
+
+          const dx = mouseX - closestX
+          const dy = mouseY - closestY
+          distanceToContainer = Math.sqrt(dx * dx + dy * dy)
         }
 
-        const dx = mouseX - closestX
-        const dy = mouseY - closestY
-        distanceToContainer = Math.sqrt(dx * dx + dy * dy)
+        if (distanceToContainer <= hoverZoneRadius) {
+          setIsHovering(true)
+
+          const revealX = Math.max(0, Math.min(rect.width, closestX - rect.left))
+          const revealY = Math.max(0, Math.min(rect.height, closestY - rect.top))
+
+          setMousePosition({ x: revealX, y: revealY })
+
+          const normalizedDistance = Math.min(distanceToContainer / hoverZoneRadius, 1)
+          const proximity = 1 - normalizedDistance
+
+          const radius = minRevealRadius + (maxRevealRadius - minRevealRadius) * proximity
+          const opacity = proximity
+
+          setRevealRadius(radius)
+          setRevealOpacity(opacity)
+        } else {
+          setIsHovering(false)
+          setRevealRadius(0)
+          setRevealOpacity(0)
+        }
       }
 
-      if (distanceToContainer <= hoverZoneRadius) {
-        setIsHovering(true)
-
-        const revealX = Math.max(0, Math.min(rect.width, closestX - rect.left))
-        const revealY = Math.max(0, Math.min(rect.height, closestY - rect.top))
-
-        setMousePosition({ x: revealX, y: revealY })
-
-        const normalizedDistance = Math.min(distanceToContainer / hoverZoneRadius, 1)
-        const proximity = 1 - normalizedDistance
-
-        const radius = minRevealRadius + (maxRevealRadius - minRevealRadius) * proximity
-        const opacity = proximity
-
-        setRevealRadius(radius)
-        setRevealOpacity(opacity)
-      } else {
-        setIsHovering(false)
-        setRevealRadius(0)
-        setRevealOpacity(0)
-      }
+      window.addEventListener("mousemove", handleMouseMove)
+      return () => window.removeEventListener("mousemove", handleMouseMove)
     }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [hoverZoneRadius, maxRevealRadius, minRevealRadius])
+  }, [isMobile, hoverZoneRadius, maxRevealRadius, minRevealRadius, revealStartOffset, revealSensitivity])
 
   return (
-    <footer className="bg-black   px-3 sm:px-6 lg:px-8">
+    <footer ref={footerRef} className="bg-black   px-3 sm:px-6 lg:px-8">
       <div className="container mx-auto px-4">
         {/*  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-12">
           <div>
@@ -231,7 +286,7 @@ export default function ModernFooter() {
       </div>
 
       <div className="w-full  py-8 sm:py-12 h-[400px] d-flex ">
-        <div className="w-full flex items-end justify-center h-full">
+        <div className="w-full flex items-end justify-center h-full items-center sm:items-end">
           <div
             ref={logoContainerRef}
             className="relative w-full mx-auto px-4 group"

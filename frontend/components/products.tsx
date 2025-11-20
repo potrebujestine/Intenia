@@ -113,7 +113,7 @@ export default function Products() {
               className="group relative"
             >
               <div className="absolute -inset-1 bg-gradient-to-r to-brand-primary-light rounded-xl blur-sm opacity-70  transition-opacity duration-300"></div>
-              <div className="relative  rounded-lg p-5 sm:p-6 h-full flex flex-col  transition-colors">
+              <div className="relative  rounded-lg p-0  sm:p-6 h-full flex flex-col  transition-colors">
                 <div className="mb-4">
                   <div className="relative w-full h-96 mb-3 transition-transform duration-300 overflow-hidden">
                     <Image
