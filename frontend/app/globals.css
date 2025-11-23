@@ -24,7 +24,7 @@
     --input: 240 5.9% 90%;
     --ring: 199 100% 62%;
     --radius: 0.5rem;
-    
+
     --brand-primary: 199 100% 62%;
     --brand-primary-light: 199 100% 72%;
     --brand-primary-dark: 199 100% 52%;
@@ -52,7 +52,7 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 199 100% 62%;
-    
+
     --brand-primary: 199 100% 62%;
     --brand-primary-light: 199 100% 72%;
     --brand-primary-dark: 199 100% 52%;
@@ -65,9 +65,11 @@
   * {
     @apply border-border;
   }
+
   html {
     font-size: 20px;
   }
+
   body {
     @apply bg-background text-foreground;
     font-family: "Rajdhani", sans-serif;
@@ -126,9 +128,11 @@
   0% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-10px);
   }
+
   100% {
     transform: translateY(0px);
   }
@@ -139,10 +143,12 @@
 }
 
 @keyframes pulse-slow {
+
   0%,
   100% {
     opacity: 0.5;
   }
+
   50% {
     opacity: 0.8;
   }
@@ -165,6 +171,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -174,6 +181,7 @@
   0% {
     transform: translateX(-50%);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -191,6 +199,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -248,11 +257,13 @@ html {
 
 /* Hide scrollbar for mobile swipe components */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari and Opera */
+  display: none;
+  /* Chrome, Safari and Opera */
 }
-

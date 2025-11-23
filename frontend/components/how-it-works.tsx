@@ -127,13 +127,13 @@ export default function AboutUs() {
                 }}
               >
                 {/* Logo and Company Name */}
-                <div className="absolute top-6 left-6 flex items-center justify-start gap-3 z-20">
-                  <div className="w-12 h-12 rounded-full bg-black border border-white/20 flex items-center justify-center overflow-hidden">
+                <div className="absolute top-3 left-6 flex items-center justify-start gap-3 z-20">
+                  <div className="w-10 h-10 rounded-full bg-black border border-white/20 flex items-center justify-center overflow-hidden">
                     <Image
-                      src="/images/logos/Intenia-engineering.jpeg"
-                      alt="Intenia Engineering"
-                      width={48}
-                      height={48}
+                      src="/images/logos/intenia-logo.png"
+                      alt="Intenia Logo"
+                      width={24}
+                      height={24}
                       className="w-full h-full object-cover"
                     />
                   </div>

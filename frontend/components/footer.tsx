@@ -273,13 +273,7 @@ export default function ModernFooter() {
           <p className="text-white/50 text-sm mb-4 md:mb-0">© {new Date().getFullYear()} Podjetje. Vse pravice pridržane.</p>
           <div className="flex gap-6">
             <Link href="#" className="text-white/50 hover:text-white text-sm transition-colors">
-              Politika zasebnosti
-            </Link>
-            <Link href="#" className="text-white/50 hover:text-white text-sm transition-colors">
-              Pogoji storitve
-            </Link>
-            <Link href="#" className="text-white/50 hover:text-white text-sm transition-colors">
-              Politika piškotkov
+              Politika zasebnosti in piškotkov
             </Link>
           </div>
         </div>
