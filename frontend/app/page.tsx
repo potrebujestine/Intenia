@@ -75,6 +75,10 @@ const Products = dynamic(() => import("@/components/products"), {
   ssr: false,
 });
 
+const Services = dynamic(() => import("@/components/services"), {
+  ssr: false,
+});
+
 const BlogPreview = dynamic(() => import("@/components/blog-preview"), {
   ssr: false,
 });
@@ -120,6 +124,9 @@ export default function Home() {
       </LazyLoad> */}
       <LazyLoad>
         <Products />
+      </LazyLoad>
+      <LazyLoad>
+        <Services />
       </LazyLoad>
       <LazyLoad>
         <HowItWorks />
