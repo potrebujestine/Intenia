@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Users, Target, Network, Lightbulb, Leaf, Shield } from "lucide-react";
 import Image from "next/image";
+import { useWPData } from "@/hooks/useWPData";
 
 export default function AboutUs() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -32,36 +33,17 @@ export default function AboutUs() {
     },
   ];
 
-  const values = [
-    {
-      icon: Lightbulb,
-      title: "Utility",
-      slTitle: "Uporabnost",
-      description: "Delivering practical and effective solutions that provide real value to our clients.",
-      slDescription: "Zagotavljamo praktične in učinkovite rešitve, ki prinašajo resnično vrednost našim strankam.",
-    },
-    {
-      icon: Target,
-      title: "Rationality",
-      slTitle: "Racionalnost",
-      description: "Ensuring logical and efficient project approaches for optimal resource utilization.",
-      slDescription: "Zagotavljamo logične in učinkovite pristope k projektom za optimalno izkoriščanje virov.",
-    },
-    {
-      icon: Leaf,
-      title: "Environmental Friendliness",
-      slTitle: "Okolju prijaznost",
-      description: "Prioritizing sustainable and eco-friendly practices to minimize environmental impact.",
-      slDescription: "Prednost dajemo trajnostnim in okolju prijaznim praksam za zmanjšanje vpliva na okolje.",
-    },
-    {
-      icon: Shield,
-      title: "Safety",
-      slTitle: "Varnost",
-      description: "Maintaining high safety standards in all operations to ensure the well-being of our team and clients.",
-      slDescription: "Ohranjamo visoke varnostne standarde v vseh operacijah za zagotovitev dobrega počutja naše ekipe in strank.",
-    },
-  ];
+  const { data: wpValues, loading } = useWPData("values")
+
+  const icons = [Lightbulb, Target, Leaf, Shield, Users, Network]
+
+  const values = wpValues.length > 0 ? wpValues.map((value: any, index: number) => ({
+    icon: icons[index % icons.length],
+    title: value.title.rendered,
+    slTitle: value.title.rendered, // Using rendered title for both as language is handled by API
+    description: value.content.rendered.replace(/<[^>]*>?/gm, ""),
+    slDescription: value.content.rendered.replace(/<[^>]*>?/gm, ""),
+  })) : []
 
   // Progress animation
   useEffect(() => {
@@ -263,7 +245,7 @@ export default function AboutUs() {
       <div className="relative w-screen left-1/2 -translate-x-1/2">
         <div className="w-full">
           <div className="mt-16 w-full">
-            {values.map((value, index) => {
+            {values.map((value: any, index: number) => {
               const Icon = value.icon;
               const isFirst = index === 0;
 

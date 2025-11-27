@@ -5,52 +5,18 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useWPData } from "@/hooks/useWPData"
 
 export default function Products() {
-  const products = [
-    {
-      id: 1,
-      name: "Storitve CNC obdelave",
-      description: "Natančna CNC obdelava za visokokakovostne komponente",
-      image: "/images/slika-1.png",
-      category: "Proizvodnja",
-    },
-    {
-      id: 2,
-      name: "Rešitve za varjenje",
-      description: "Profesionalne storitve varjenja za industrijske aplikacije",
-      image: "/images/slika-2.png",
-      category: "Proizvodnja",
-    },
-    {
-      id: 3,
-      name: "Inženirske konzultacije",
-      description: "Strokovni inženirski nasveti in načrtovanje projektov",
-      image: "/images/slika-3.png",
-      category: "Inženirstvo",
-    },
-    {
-      id: 4,
-      name: "Montaža opreme",
-      description: "Profesionalne storitve namestitve in montaže",
-      image: "/images/slika-4.png",
-      category: "Storitve",
-    },
-    {
-      id: 5,
-      name: "Proizvodnja rezervnih delov",
-      description: "Proizvodnja prilagojenih rezervnih delov",
-      image: "/images/slika-5.png",
-      category: "Proizvodnja",
-    },
-    {
-      id: 6,
-      name: "Površinske obdelave",
-      description: "Napredne rešitve za površinske obdelave",
-      image: "/images/slika-6.png",
-      category: "Proizvodnja",
-    },
-  ]
+  const { data: wpProducts, loading } = useWPData("new-products")
+
+  const products = wpProducts.map((product: any) => ({
+    id: product.id,
+    name: product.title.rendered,
+    description: product.content.rendered.replace(/<[^>]*>?/gm, "").trim(), // Strip HTML tags and trim
+    image: product._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/images/placeholder.png",
+    category: product.acf?.category || "Proizvodnja",
+  }))
 
   const containerVariants = {
     hidden: { opacity: 0 },

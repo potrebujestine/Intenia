@@ -5,6 +5,7 @@ import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
 import { Globe } from "lucide-react"
+import { useLanguage } from "@/context/LanguageContext"
 import {
   Select,
   SelectContent,
@@ -22,7 +23,7 @@ const languages = [
 export default function DesktopNav() {
   const pathname = usePathname()
   const router = useRouter()
-  const [selectedLanguage, setSelectedLanguage] = useState("sl")
+  const { selectedLanguage, setSelectedLanguage } = useLanguage()
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
@@ -41,7 +42,7 @@ export default function DesktopNav() {
   }
 
   const handleLanguageChange = (value: string) => {
-    setSelectedLanguage(value)
+    setSelectedLanguage(value as "sl" | "en" | "fr")
   }
 
   const currentLanguage = languages.find(lang => lang.code === selectedLanguage) || languages[0]

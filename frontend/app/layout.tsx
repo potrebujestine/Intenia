@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Rajdhani } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { LanguageProvider } from "@/context/LanguageContext"
 import ModernHeader from "@/components/header"
 import ModernFooter from "@/components/footer"
 
@@ -52,9 +53,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ModernHeader />
-          <main>{children}</main>
-          <ModernFooter />
+          <LanguageProvider>
+            <ModernHeader />
+            <main>{children}</main>
+            <ModernFooter />
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

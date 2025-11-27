@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/wp-content/uploads/(.*)",
+      "destination": "https://wp.intenia-engineering.si/wp-content/uploads/$1"
+    }
+  ]
+}
