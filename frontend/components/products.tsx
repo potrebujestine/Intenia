@@ -12,12 +12,13 @@ export default function Products() {
 
   const products = wpProducts.map((product: any) => ({
     id: product.id,
-    name: product.title.rendered,
-    description: product.content.rendered.replace(/<[^>]*>?/gm, "").trim(), // Strip HTML tags and trim
-    image: product._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/images/placeholder.png",
+    name: product.products_title || product.title.rendered,
+    description: product.short_description || product.content.rendered.replace(/<[^>]*>?/gm, "").trim(),
+    image: product.image?.guid || "/images/placeholder.png",
     category: product.acf?.category || "Proizvodnja",
   }))
-
+  console.log("products", products)
+  console.log("products image", products[0]?.image)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

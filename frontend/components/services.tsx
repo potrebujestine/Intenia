@@ -12,11 +12,13 @@ export default function Products() {
 
   const products = wpServices.map((service: any) => ({
     id: service.id,
-    name: service.title.rendered,
-    description: service.content.rendered.replace(/<[^>]*>?/gm, "").trim(), // Strip HTML tags and trim
-    image: service._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/images/placeholder.png",
+    name: service.service_title || service.title.rendered,
+    description: service.short_description || service.content.rendered.replace(/<[^>]*>?/gm, "").trim(),
+    image: service.image?.guid || "/images/placeholder.png",
     category: service.acf?.category || "Storitve",
   }))
+  console.log("services", products)
+  console.log("services image", products[0]?.image)
 
   return (
     <section className="relative bg-black overflow-hidden" aria-labelledby="products-heading">
