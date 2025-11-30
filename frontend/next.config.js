@@ -41,6 +41,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'intenia-engineering.si',
       },
+      {
+        protocol: 'https',
+        hostname: 'wp.intenia-engineering.si',
+      },
     ],
     unoptimized: process.env.NODE_ENV === 'development',
   },

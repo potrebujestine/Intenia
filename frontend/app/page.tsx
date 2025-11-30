@@ -122,15 +122,11 @@ export default function Home() {
       {/* <LazyLoad>
         <SocialProof />
       </LazyLoad> */}
-      <LazyLoad>
-        <Products />
-      </LazyLoad>
-      <LazyLoad>
-        <Services />
-      </LazyLoad>
-      <LazyLoad>
+      <Products />
+      <Services />
+      {/*    <LazyLoad>
         <HowItWorks />
-      </LazyLoad>
+      </LazyLoad> */}
       {/* <LazyLoad>
         <Features />
       </LazyLoad> */}

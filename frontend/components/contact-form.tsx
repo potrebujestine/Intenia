@@ -68,7 +68,7 @@ export default function ContactForm() {
   }
 
   return (
-    <section id="kontakt" className="py-16 pb-20 px-3 sm:px-0 sm:py-16 md:py-24 bg-black relative overflow-hidden scroll-mt-24">
+    <section id="kontakt" className="pt-4 pb-20 px-3 sm:px-0 sm:py-16 md:py-12 bg-black relative overflow-hidden scroll-mt-24">
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-radial from-brand-primary/20 via-transparent to-transparent opacity-30"></div>
         <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-repeat opacity-10"></div>
@@ -82,7 +82,7 @@ export default function ContactForm() {
           transition={{ duration: 0.5 }}
           className=""
         >
-          <div className="mt-24 lg:mt-36">
+          <div className="mt-16 lg:mt-4">
             <div className="mx-auto w-full relative">
               <div className="relative">
                 <div className="absolute -inset-1 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-[29px] blur-lg opacity-70"></div>

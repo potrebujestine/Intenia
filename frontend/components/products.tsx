@@ -17,8 +17,7 @@ export default function Products() {
     image: product.image?.guid || "/images/placeholder.png",
     category: product.acf?.category || "Proizvodnja",
   }))
-  console.log("products", products)
-  console.log("products image", products[0]?.image)
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -37,6 +36,21 @@ export default function Products() {
       y: 0,
     },
   }
+
+
+  const ProductSkeleton = () => (
+    <div className="group relative">
+      <div className="absolute -inset-1 bg-gradient-to-r to-brand-primary-light rounded-xl blur-sm opacity-30"></div>
+      <div className="relative rounded-lg p-0 sm:p-6 h-full flex flex-col">
+        <div className="mb-4">
+          <div className="relative w-full h-96 mb-3 bg-white/10 animate-pulse rounded-lg"></div>
+        </div>
+        <div className="h-8 bg-white/10 animate-pulse rounded mb-2 w-3/4"></div>
+        <div className="h-4 bg-white/10 animate-pulse rounded mb-2 w-full"></div>
+        <div className="h-4 bg-white/10 animate-pulse rounded w-5/6"></div>
+      </div>
+    </div>
+  )
 
   return (
     <section
@@ -65,51 +79,54 @@ export default function Products() {
           </p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"
-        >
-          {products.map((product) => (
-            <motion.div
-              key={product.id}
-              variants={itemVariants}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="group relative"
-            >
-              <div className="absolute -inset-1 bg-gradient-to-r to-brand-primary-light rounded-xl blur-sm opacity-70  transition-opacity duration-300"></div>
-              <div className="relative  rounded-lg p-0  sm:p-6 h-full flex flex-col  transition-colors">
-                <div className="mb-4">
-                  <div className="relative w-full h-96 mb-3 transition-transform duration-300 overflow-hidden">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
-                    />
-
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            {[1, 2, 3, 4].map((i) => (
+              <ProductSkeleton key={i} />
+            ))}
+          </div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"
+          >
+            {products.map((product, index) => (
+              <motion.div
+                key={product.id}
+                variants={itemVariants}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="group relative"
+              >
+                <div className="absolute -inset-1 bg-gradient-to-r to-brand-primary-light rounded-xl blur-sm opacity-70  transition-opacity duration-300"></div>
+                <div className="relative  rounded-lg p-0  sm:p-6 h-full flex flex-col  transition-colors">
+                  <div className="mb-4">
+                    <div className="relative w-full h-96 mb-3 transition-transform duration-300 overflow-hidden">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        priority={index < 2}
+                        placeholder="blur"
+                        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                      />
+                    </div>
                   </div>
-                  {/*  <span className="text-xs text-brand-primary-light font-medium">
-                    {product.category}
-                  </span> */}
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-2 ">
+                    {product.name}
+                  </h2>
+                  <p className="text-sm sm:text-base text-white/70 mb-4 flex-grow">
+                    {product.description}
+                  </p>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-2 ">
-                  {product.name}
-                </h2>
-                <p className="text-sm sm:text-base text-white/70 mb-4 flex-grow">
-                  {product.description}
-                </p>
-                {/*   <div className="flex items-center text-brand-primary-light text-sm font-medium group-hover:translate-x-1 transition-transform">
-                  Več informacij
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </div> */}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

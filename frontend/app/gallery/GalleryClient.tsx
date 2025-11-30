@@ -73,7 +73,7 @@ export default function GalleryClient({ images }: GalleryClientProps) {
             viewport={{ once: true, margin: "-100px" }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
           >
-            {images.map((image) => (
+            {images.map((image, index) => (
               <motion.div
                 key={image.ID}
                 variants={itemVariants}
@@ -87,6 +87,9 @@ export default function GalleryClient({ images }: GalleryClientProps) {
                       src={image.url}
                       alt={image.title || "Gallery image"}
                       fill
+                      priority={index < 9}
+                      placeholder="blur"
+                      blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                       className="object-cover"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />

@@ -68,13 +68,13 @@ export default function DesktopNav() {
           {t("about")}
         </Link>
 
-        <Link
+        {/*   <Link
           href="/#nase-vrednote"
           onClick={(e) => handleAnchorClick(e, '#nase-vrednote')}
           className="text-white/80 hover:text-white transition-colors py-2 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 text-sm lg:text-base"
         >
           {t("values")}
-        </Link>
+        </Link> */}
 
         <Link
           href="/products"
