@@ -1,13 +1,18 @@
 import { getRequestConfig, type RequestConfig } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 
-const locales = ['sl', 'en', 'fr']
+const locales = ['sl', 'en', 'fr'] as const
+type Locale = typeof locales[number]
 
 export default getRequestConfig(async ({ locale }): Promise<RequestConfig> => {
-  if (!locales.includes(locale as any)) notFound()
+  if (!locale || !(locales as readonly string[]).includes(locale)) {
+    notFound()
+  }
+
+  const validLocale: string = locale
 
   return {
-    locale,
-    messages: (await import(`./messages/${locale}.json`)).default
+    locale: validLocale,
+    messages: (await import(`./messages/${validLocale}.json`)).default
   }
 })
