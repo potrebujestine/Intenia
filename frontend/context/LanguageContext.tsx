@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useContext, useState, ReactNode } from "react"
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react"
 
 type Language = "sl" | "en" | "fr"
 
@@ -11,11 +11,27 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
+const STORAGE_KEY = "intenia-language"
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("sl")
+  const [isHydrated, setIsHydrated] = useState(false)
+
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY) as Language | null
+    if (stored && ["sl", "en", "fr"].includes(stored)) {
+      setSelectedLanguage(stored)
+    }
+    setIsHydrated(true)
+  }, [])
+
+  const handleLanguageChange = (lang: Language) => {
+    setSelectedLanguage(lang)
+    localStorage.setItem(STORAGE_KEY, lang)
+  }
 
   return (
-    <LanguageContext.Provider value={{ selectedLanguage, setSelectedLanguage }}>
+    <LanguageContext.Provider value={{ selectedLanguage, setSelectedLanguage: handleLanguageChange }}>
       {children}
     </LanguageContext.Provider>
   )

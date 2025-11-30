@@ -3,6 +3,7 @@ import { Rajdhani } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/context/LanguageContext"
+import { IntlProvider } from "@/components/NextIntlProvider"
 import ModernHeader from "@/components/header"
 import ModernFooter from "@/components/footer"
 
@@ -54,9 +55,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LanguageProvider>
-            <ModernHeader />
-            <main>{children}</main>
-            <ModernFooter />
+            <IntlProvider>
+              <ModernHeader />
+              <main>{children}</main>
+              <ModernFooter />
+            </IntlProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

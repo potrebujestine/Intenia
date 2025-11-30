@@ -3,8 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
-import { useState } from "react"
-import { Globe } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { useLanguage } from "@/context/LanguageContext"
 import {
   Select,
@@ -24,6 +23,7 @@ export default function DesktopNav() {
   const pathname = usePathname()
   const router = useRouter()
   const { selectedLanguage, setSelectedLanguage } = useLanguage()
+  const t = useTranslations("nav")
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
@@ -65,7 +65,7 @@ export default function DesktopNav() {
           onClick={(e) => handleAnchorClick(e, '#o-nas')}
           className="text-white/80 hover:text-white transition-colors py-2 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 text-sm lg:text-base"
         >
-          O nas
+          {t("about")}
         </Link>
 
         <Link
@@ -73,14 +73,14 @@ export default function DesktopNav() {
           onClick={(e) => handleAnchorClick(e, '#nase-vrednote')}
           className="text-white/80 hover:text-white transition-colors py-2 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 text-sm lg:text-base"
         >
-          Naše vrednote
+          {t("values")}
         </Link>
 
         <Link
           href="/products"
           className="text-white/80 hover:text-white transition-colors py-2 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 text-sm lg:text-base"
         >
-          Produkti
+          {t("products")}
         </Link>
 
         <Link
@@ -88,7 +88,7 @@ export default function DesktopNav() {
           onClick={(e) => handleAnchorClick(e, '#kontakt')}
           className="text-white/80 hover:text-white transition-colors py-2 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 text-sm lg:text-base"
         >
-          Kontakt
+          {t("contact")}
         </Link>
       </nav>
 
