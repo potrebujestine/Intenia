@@ -28,9 +28,12 @@ interface WPData {
     }>
   }
   acf?: any
-  // Product-specific fields
+  order?: number | string
+  heading?: string
+  description?: string
   products_title?: string
   short_description?: string
+  short_text?: string
   image?: WPImage
   [key: string]: any
 }

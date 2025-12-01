@@ -7,67 +7,35 @@ import Image from "next/image";
 import { useWPData } from "@/hooks/useWPData";
 
 export default function AboutUs() {
+  const { data: aboutUsFacts, loading, error } = useWPData("about-us-carousel")
+  const { data: aboutUsSections, loading: sectionsLoading } = useWPData("about-us-section")
   const [currentSlide, setCurrentSlide] = useState(0);
   const [progress, setProgress] = useState(0);
 
-  const aboutUsFacts = [
-    {
-      icon: Users,
-      title: "Močna mreža preverjenih kooperantov",
-      description: "Intenia d.o.o. → danes Intenia Engineering d.o.o.",
-    },
-    {
-      icon: Network,
-      title: "Rešitve po meri naročnika",
-      description: "Z večjimi industrijskimi partnerji v EU",
-    },
-    {
-      icon: Users,
-      title: "Inženiring celotnega cikla – od analize do montaže",
-      description: "+ mreža zunanjih konstrukterjev in kooperantov",
-    },
-    {
-      icon: Target,
-      title: "Zasnova in konstruiranje",
-      description: "Prevzem presežnih kapacitet, dolgoročna partnerstva in kakovostna izvedba",
-    },
-    {
-      icon: Target,
-      title: "Celostno vodenje projektov",
-      description: "Prevzem presežnih kapacitet, dolgoročna partnerstva in kakovostna izvedba",
-    },
-    {
-      icon: Target,
-      title: "En sogovornik, jasen potek projekta",
-      description: "Prevzem presežnih kapacitet, dolgoročna partnerstva in kakovostna izvedba",
-    },
-    {
-      icon: Target,
-      title: "Fleksibilna ekipa z močnim zaledjem partnerjev",
-      description: "Prevzem presežnih kapacitet, dolgoročna partnerstva in kakovostna izvedba",
-    },
-    {
-      icon: Target,
-      title: "Odgovornost od ideje do dobave",
-      description: "Prevzem presežnih kapacitet, dolgoročna partnerstva in kakovostna izvedba",
-    },
-  ];
+  const extractImageUrl = (htmlString: string): string | null => {
+    if (!htmlString) return null;
+    const match = htmlString.match(/src="([^"]+)"/);
+    return match ? match[1] : null;
+  };
 
-  const { data: wpValues, loading } = useWPData("values")
+  const sortedSections = [...aboutUsSections].sort((a, b) => {
+    const orderA = Number(a.order) || 0;
+    const orderB = Number(b.order) || 0;
+    return orderA - orderB;
+  });
+
+  const firstSection = sortedSections.find((section) => Number(section.order) === 1);
+  const otherSections = sortedSections.filter((section) => Number(section.order) !== 1);
+
+
 
   const icons = [Lightbulb, Target, Leaf, Shield, Users, Network]
 
-  const values = wpValues.length > 0 ? wpValues.map((value: any, index: number) => ({
-    icon: icons[index % icons.length],
-    title: value.title.rendered,
-    slTitle: value.title.rendered, // Using rendered title for both as language is handled by API
-    description: value.content.rendered.replace(/<[^>]*>?/gm, ""),
-    slDescription: value.content.rendered.replace(/<[^>]*>?/gm, ""),
-  })) : []
+
 
   // Progress animation
   useEffect(() => {
-    const duration = 2350;
+    const duration = 2500;
     let startTime: number | null = null;
     let animationFrame: number;
 
@@ -88,7 +56,7 @@ export default function AboutUs() {
   }, [currentSlide]);
 
   useEffect(() => {
-    if (progress >= 100) {
+    if (aboutUsFacts.length > 0 && progress >= 100) {
       setCurrentSlide((prev) => (prev + 1) % aboutUsFacts.length);
       setProgress(0);
     }
@@ -167,7 +135,7 @@ export default function AboutUs() {
                       >
                         <div className="w-full text-center">
                           <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight">
-                            {fact.title}
+                            {fact.short_text}
                           </h4>
                         </div>
                       </motion.div>
@@ -178,13 +146,26 @@ export default function AboutUs() {
             </div>
             <div className="w-full lg:w-3/5 ">
               <div className="relative">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-6 text-white">
-                  O nas
-                </h2>
-
-                <p className="text-sm sm:text-base md:text-lg text-white/60 mb-8 lg:mb-12">
-                  Intenia, ki je bazirana v Sloveniji je od leta 2013 rasla kot zanesljiv industrijski partner. V tem času smo si zgradili močno mrežo preverjenih kooperantov in partnerjev, s katerimi dolgoročno sodelujemo in jim zaupamo pri izvedbi projektov. Danes to izkušnjo nadgrajujemo kot Intenia Engineering d.o.o.. Reorganizacija, posodobljeni procesi in pomlajena ekipa so nas usmerili v novo fazo. Združujemo naučeno iz preteklosti in energijo nove generacije. Naš cilj je preprost: dostaviti rešitve, ki merljivo izboljšajo procese, so varne in trajnostne ter ostanejo skladni z evropskimi standardi. (intenia v intenia engineering)
-                </p>
+                {!sectionsLoading && firstSection && Number(firstSection.order) === 1 ? (
+                  <>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-6 text-white">
+                      {firstSection.heading || firstSection.title?.rendered || "O nas"}
+                    </h2>
+                    <div
+                      className="text-sm sm:text-base md:text-lg text-white/60 mb-8 lg:mb-12"
+                      dangerouslySetInnerHTML={{ __html: firstSection.description || firstSection.content?.rendered || "" }}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-6 text-white">
+                      O nas
+                    </h2>
+                    <p className="text-sm sm:text-base md:text-lg text-white/60 mb-8 lg:mb-12">
+                      Inteniaaa, ki je bazirana v Sloveniji je od leta 2013 rasla kot zanesljiv industrijski partner. V tem času smo si zgradili močno mrežo preverjenih kooperantov in partnerjev, s katerimi dolgoročno sodelujemo in jim zaupamo pri izvedbi projektov. Danes to izkušnjo nadgrajujemo kot Intenia Engineering d.o.o.. Reorganizacija, posodobljeni procesi in pomlajena ekipa so nas usmerili v novo fazo. Združujemo naučeno iz preteklosti in energijo nove generacije. Naš cilj je preprost: dostaviti rešitve, ki merljivo izboljšajo procese, so varne in trajnostne ter ostanejo skladni z evropskimi standardi. (intenia v intenia engineering)
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -198,45 +179,55 @@ export default function AboutUs() {
           transition={{ duration: 0.5 }}
           className="mt-20 lg:mt-32"
         >
-          {/* Kje delamo */}
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 mb-20 lg:mb-32">
-            <div className="w-full lg:w-1/2">
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6">Kje delamo in kaj prevzamemo</h3>
-              <p className="text-base sm:text-lg text-white/70 mb-6">
-                V središču našega dela sta inženiring in odgovornost do celotnega cikla: od prve analize in zasnove, prek izdelave in montaže, do dokumentacije in podpore po dobavi.
-              </p>
-              <p className="text-base sm:text-lg text-white/70">
-                Kjer je smiselno, vključimo preverjene kooperante in dobavitelje ter prevzamemo celotno koordinacijo. Tako naročnik dobi enega sogovornika in jasen potek.
-              </p>
-            </div>
-            <div className="w-full lg:w-1/2">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10">
-                <Image src="/images/production-assembly.png" alt="Proizvodnja in montaža" fill className="object-cover hover:scale-105 transition-transform duration-700" />
-              </div>
-            </div>
-          </div>
+          {otherSections.length > 0 ? (
+            otherSections.map((section, index) => {
+              const imageHtml = typeof section.image === 'string' ? section.image : "";
+              const imageUrl = extractImageUrl(imageHtml);
+              const isReversed = index % 2 === 1;
+              const isLast = index === otherSections.length - 1;
 
-          {/* Kako delamo */}
-          <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20 mb-20 lg:mb-32">
-            <div className="w-full lg:w-1/2">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10">
-                <Image src="/images/engineering-plans.png" alt="Načrti in inženiring" fill className="object-cover hover:scale-105 transition-transform duration-700" />
-              </div>
-            </div>
-            <div className="w-full lg:w-1/2">
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6">Kako delamo – od ideje do izvedbe</h3>
-              <p className="text-base sm:text-lg text-white/70 mb-6">
-                Inženirske naloge vodimo celostno. Na podlagi zahtev, podatkov in standardov oblikujemo tehnično rešitev, ki optimizira učinkovitost in zagotovi varnost.
-              </p>
-              <p className="text-base sm:text-lg text-white/70 mb-6">
-                V proizvodnji skrbimo za natančnost in sledljivost. CNC obdelava, varjenje, površinske zaščite in sestava potekajo pod enotno kontrolo kakovosti. Montaža opreme je načrtovana, pravilno integrirana v obstoječe procese in preverjena.
-              </p>
-              <p className="text-base sm:text-lg text-white/70">
-                Po potrebi izvedemo revizije, nadgradnje linij in zamenjave sklopov, da podaljšamo življenjsko dobo opreme in dvignemo razpoložljivost.
-              </p>
-            </div>
-          </div>
-
+              return (
+                <div
+                  key={section.id}
+                  className={`flex flex-col ${isReversed ? "lg:flex-row-reverse" : "lg:flex-row"} items-center gap-12 lg:gap-20 ${isLast ? "pb-20" : "mb-20 lg:mb-32"}`}
+                >
+                  <div className="w-full lg:w-1/2">
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6">
+                      {section.heading || section.title?.rendered || ""}
+                    </h3>
+                    <div
+                      className="text-base sm:text-lg text-white/70 [&>p]:mb-6 [&>p:last-child]:mb-0"
+                      dangerouslySetInnerHTML={{ __html: section.description || section.content?.rendered || "" }}
+                    />
+                    {Number(section.order) === 4 && (
+                      <a href="#kontakt" className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 duration-200 py-2 bg-brand-primary hover:bg-brand-primary-dark text-white h-12 px-8 text-base rounded-full group mt-6">
+                        Kontaktirajte nas
+                      </a>
+                    )}
+                  </div>
+                  <div className="w-full lg:w-1/2">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10">
+                      {imageUrl ? (
+                        <Image
+                          src={imageUrl}
+                          alt={section.heading || section.title?.rendered || ""}
+                          fill
+                          className="object-cover hover:scale-105 transition-transform duration-700"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-white/5 flex items-center justify-center text-white/30">
+                          No image
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <>
+            </>
+          )}
           <div className="mb-20 lg:mb-32">
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-12 text-center">Naša načela</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -270,26 +261,7 @@ export default function AboutUs() {
             </div>
           </div>
 
-          {/* Kako začnemo sodelovanje */}
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 pb-20">
-            <div className="w-full lg:w-1/2">
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6">Kako začnemo sodelovanje</h3>
-              <p className="text-base sm:text-lg text-white/70 mb-6">
-                Na domači strani so predstavljeni naši produkti in sklopi s ključnimi tehničnimi podatki, ki dajo občutek, kakšne izzive rešujemo in v kakšnem razponu delamo.
-              </p>
-              <p className="text-base sm:text-lg text-white/70 mb-8">
-                Če iščete zanesljivega izvajalca, ki prevzame odgovornost od ideje do dobave in deluje po načelu rešitve po meri naročnika, nas kontaktirajte prek obrazca. Vaše povpraševanje obravnavamo prednostno in v kratkem času preverimo, kako lahko z našim znanjem in mrežo partnerjev podprete vaš projekt.
-              </p>
-              {/*   <a href="#kontakt" className="inline-flex items-center justify-center px-8 py-3 text-base font-bold text-black bg-white rounded-full hover:bg-white/90 transition-colors">
-                Kontaktirajte nas
-              </a> */}
-            </div>
-            <div className="w-full lg:w-1/2">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10">
-                <Image src="/images/business-handshake.png" alt="Sodelovanje" fill className="object-cover hover:scale-105 transition-transform duration-700" />
-              </div>
-            </div>
-          </div>
+
         </motion.div>
       </div>
       {/*   <div className="relative w-screen left-1/2 -translate-x-1/2">
