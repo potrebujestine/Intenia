@@ -25,15 +25,18 @@ export default function DesktopNav() {
   const router = useRouter()
   const { selectedLanguage, setSelectedLanguage } = useLanguage()
   const t = useTranslations("nav")
-  const [showLogo, setShowLogo] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const isHomePage = pathname === "/"
+  const showLogo = !isHomePage || isScrolled
 
   // Handle scroll to show/hide logo
   useEffect(() => {
     const handleScroll = () => {
       const headerHeight = 60 // Header height in pixels
-      setShowLogo(window.scrollY > headerHeight)
+      setIsScrolled(window.scrollY > headerHeight)
     }
 
+    handleScroll()
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -71,25 +74,25 @@ export default function DesktopNav() {
   const currentLanguage = languages.find(lang => lang.code === selectedLanguage) || languages[0]
 
   return (
-    <>
-      <Link
-        href="/"
-        className={`hidden md:flex items-center mr-2 lg:mr-4 ml-2 lg:ml-4 transition-all duration-300 ${showLogo ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 pointer-events-none'
-          }`}
-      >
-        <Image
-          src="/images/logos/intenia-logo-2.png"
-          alt="Intenia Engineering Logo"
-          width={150}
-          height={40}
-          className="h-5 w-auto"
-          priority
-        />
-      </Link>
-      <nav
-        className={`hidden md:flex items-center gap-4 lg:gap-8 transition-transform duration-300 ${showLogo ? 'translate-x-0' : '-translate-x-[158px] lg:-translate-x-[166px]'
-          }`}
-      >
+    <div className="hidden md:grid grid-cols-3 items-center w-full">
+      <div className="justify-self-start">
+        <Link
+          href="/"
+          className={`flex items-center transition-all duration-300 ${showLogo ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            }`}
+        >
+          <Image
+            src="/images/logos/intenia-logo-2.png"
+            alt="Intenia Engineering Logo"
+            width={150}
+            height={40}
+            className="h-5 w-auto"
+            priority
+          />
+        </Link>
+      </div>
+
+      <nav className="justify-self-center flex items-center gap-4 lg:gap-8">
         <Link
           href="/#o-nas"
           onClick={(e) => handleAnchorClick(e, '#o-nas')}
@@ -97,7 +100,6 @@ export default function DesktopNav() {
         >
           {t("about")}
         </Link>
-
 
         <Link
           href="/products"
@@ -122,7 +124,7 @@ export default function DesktopNav() {
         </Link>
       </nav>
 
-      <div className="hidden md:flex items-center gap-1 lg:gap-3">
+      <div className="justify-self-end flex items-center gap-1 lg:gap-3">
         <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
           <SelectTrigger className="w-[110px] h-9 bg-white/5 border-white/10 text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-200 [&>span:first-of-type]:hidden focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus:outline-none focus:border-white/10 active:border-white/10 data-[state=open]:border-white/10 data-[state=closed]:border-white/10 [&:focus]:border-white/10 [&:active]:border-white/10 [&:focus-visible]:border-white/10 [&:focus-visible]:ring-0">
             <SelectValue />
@@ -136,7 +138,7 @@ export default function DesktopNav() {
               <SelectItem
                 key={language.code}
                 value={language.code}
-                className="hover:bg-white/10  cursor-pointer"
+                className="hover:bg-white/10 cursor-pointer"
               >
                 <span className="flex items-center gap-2">
                   <span className="text-lg">{language.flag}</span>
@@ -147,6 +149,6 @@ export default function DesktopNav() {
           </SelectContent>
         </Select>
       </div>
-    </>
+    </div>
   )
 }
