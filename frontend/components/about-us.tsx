@@ -32,7 +32,7 @@ export default function AboutUs() {
   const firstSection = sortedSections.find((section) => Number(section.order) === 1);
   const otherSections = sortedSections.filter((section) => Number(section.order) !== 1);
 
-  const principleIcons = [Target, Shield, Leaf];
+  const principleIcons = [Leaf, Shield, Target];
 
   const sortedPrinciples = [...aboutUsPrinciples].sort((a, b) => {
     const orderA = Number(a.order) || 0;
@@ -41,7 +41,6 @@ export default function AboutUs() {
   });
 
 
-  // Progress animation
   useEffect(() => {
     const duration = 2500;
     let startTime: number | null = null;
@@ -70,14 +69,13 @@ export default function AboutUs() {
     }
   }, [progress, aboutUsFacts.length]);
 
-  // Reset progress when slide changes
+
   useEffect(() => {
     setProgress(0);
   }, [currentSlide]);
 
   return (
     <section className="py-8 sm:py-12 md:py-16 bg-black relative overflow-x-hidden">
-      {/* Background elements */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-brand-primary/10 rounded-full blur-[100px]"></div>
         <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-brand-primary-light/10 rounded-full blur-[100px]"></div>
@@ -85,7 +83,6 @@ export default function AboutUs() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-16 relative z-10">
-        {/* About Us Section */}
         <motion.div
           id="o-nas"
           initial={{ opacity: 0, y: 20 }}
@@ -95,7 +92,6 @@ export default function AboutUs() {
           className="mt-8 lg:mt-8 scroll-mt-8"
         >
           <div className="flex flex-col-reverse justify-between items-start gap-12 lg:flex-row lg:gap-0">
-            {/* Left Side - Slider */}
             <div className="w-full relative lg:w-1/3">
               <div
                 className="relative w-full flex overflow-hidden bg-black/90 backdrop-blur-sm border border-white/10 rounded-[15px] aspect-[4/5] lg:aspect-[3/4] lg:rounded-[29px] cursor-pointer"
@@ -104,7 +100,6 @@ export default function AboutUs() {
                   setProgress(0);
                 }}
               >
-                {/* Slide Indicators */}
                 <div className="z-20 w-full flex justify-evenly gap-2 absolute bottom-8 left-0 px-8 pointer-events-none">
                   {aboutUsFacts.map((_, index) => (
                     <div
@@ -170,7 +165,6 @@ export default function AboutUs() {
           </div>
         </motion.div>
 
-        {/* New Sections */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
