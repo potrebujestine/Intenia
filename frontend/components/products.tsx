@@ -16,7 +16,10 @@ export default function Products() {
   const header = productsSection?.header
   const description = productsSection?.description
 
-  const products = wpProducts.map((product: any) => ({
+  const products = wpProducts.filter((product: any) => {
+    const showOnLandingPage = product.show_on_landing_page;
+    return showOnLandingPage === "1" || showOnLandingPage === 1 || (Array.isArray(showOnLandingPage) && showOnLandingPage.length > 0);
+  }).map((product: any) => ({
     id: product.id,
     name: product.products_title || product.title.rendered,
     description: product.short_description || product.content.rendered.replace(/<[^>]*>?/gm, "").trim(),
