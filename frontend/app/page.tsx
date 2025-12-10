@@ -16,11 +16,9 @@ export default async function Home() {
     <div className="min-h-screen bg-black px-0 sm:px-4 text-white">
       <ScrollRestoration />
       <ScrollToTop />
-
       <HeroServer />
-
-      <Products />
       <Services />
+      <Products />
       <LazyLoad>
         <AboutUs />
       </LazyLoad>
