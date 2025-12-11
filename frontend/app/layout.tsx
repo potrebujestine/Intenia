@@ -16,8 +16,26 @@ const rajdhani = Rajdhani({
 })
 
 export const metadata: Metadata = {
-  title: "Intenia Engineering",
-  description: "Inženirska odličnost - Inovativnost in kakovost",
+  title: {
+    default: "Intenia Engineering",
+    template: "%s | Intenia Engineering",
+  },
+  description: "Inženirska odličnost - Inovativnost in kakovost. Intenia Engineering ponuja strokovne inženirske storitve in rešitve.",
+  keywords: ["Intenia Engineering", "inženirstvo", "engineering", "Slovenija", "strokovne storitve"],
+  authors: [{ name: "Intenia Engineering" }],
+  creator: "Intenia Engineering",
+  publisher: "Intenia Engineering",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: "/images/icons/favicon.svg",
     shortcut: "/images/icons/favicon.svg",
@@ -25,9 +43,15 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   generator: "Intenia Engineering",
+  metadataBase: new URL("https://www.intenia-engineering.si"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Intenia Engineering",
-    description: "Inženirska odličnost - Inovativnost in kakovost",
+    description: "Inženirska odličnost - Inovativnost in kakovost. Intenia Engineering ponuja strokovne inženirske storitve in rešitve.",
+    url: "https://www.intenia-engineering.si",
+    siteName: "Intenia Engineering",
     images: [
       {
         url: "/temp.png",
@@ -36,7 +60,14 @@ export const metadata: Metadata = {
         alt: "Intenia Engineering",
       },
     ],
+    locale: "sl_SI",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Intenia Engineering",
+    description: "Inženirska odličnost - Inovativnost in kakovost",
+    images: ["/temp.png"],
   },
 }
 

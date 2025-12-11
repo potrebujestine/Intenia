@@ -137,8 +137,8 @@ export default function AboutUs() {
                           }`}
                       >
                         <div className="w-full text-center">
-                          <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight" dangerouslySetInnerHTML={{ __html: fact.short_text || "" }}>
-                          </h4>
+                          <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight" dangerouslySetInnerHTML={{ __html: fact.short_text || "" }}>
+                          </div>
                         </div>
                       </motion.div>
                     );

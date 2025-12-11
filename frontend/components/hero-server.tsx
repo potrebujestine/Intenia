@@ -40,7 +40,7 @@ export default async function HeroServer() {
           />
         </div>
         <div className="text-center leading-tight max-w-[300px] items-center justify-center mt-36">
-          <p>{title}</p>
+          <h1 className="text-2xl sm:text-3xl font-bold mb-4">{title || "Intenia Engineering"}</h1>
           <HeroClient buttonText={buttonText} />
         </div>
       </div>
