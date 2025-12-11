@@ -44,9 +44,6 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
   generator: "Intenia Engineering",
   metadataBase: new URL("https://www.intenia-engineering.si"),
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "Intenia Engineering",
     description: "Inženirska odličnost - Inovativnost in kakovost. Intenia Engineering ponuja strokovne inženirske storitve in rešitve.",

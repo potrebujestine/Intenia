@@ -1,5 +1,12 @@
 import GalleryClient from './GalleryClient';
 import { getGalleryImages } from '@/lib/wordpress';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/gallery',
+  },
+};
 
 interface GalleryImage {
   ID: string;
@@ -16,7 +23,6 @@ export default async function GalleryPage() {
   try {
     const wpGalleries: GalleryItem[] = await getGalleryImages();
 
-    // Extract all images from all galleries
     const allImages = wpGalleries.flatMap((gallery) =>
       (gallery.image || []).map((img) => ({
         ID: img.ID,

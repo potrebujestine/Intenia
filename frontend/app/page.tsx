@@ -2,6 +2,13 @@ import dynamic from "next/dynamic";
 import HeroServer from "@/components/hero-server";
 import ScrollToTop from "@/components/scroll-to-top";
 import ScrollToContact from "@/components/scroll-to-contact";
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/',
+  },
+};
 
 const Products = dynamic(() => import("@/components/products"));
 const Services = dynamic(() => import("@/components/services"));
