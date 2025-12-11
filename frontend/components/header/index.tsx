@@ -13,7 +13,6 @@ export default function ModernHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
@@ -22,7 +21,7 @@ export default function ModernHeader() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Prevent body scroll when mobile menu is open
+
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -42,21 +41,33 @@ export default function ModernHeader() {
         scrolled ? "bg-black/80 backdrop-blur-lg shadow-lg shadow-black/20 border-b border-white/10" : "bg-transparent"
       )}
     >
-      <div className="container mx-auto pl-0 pr-4 flex items-center justify-between">
-        {/* Desktop Navigation */}
-        <DesktopNav />
-
+      <div className="container mx-auto pl-0 pr-4 flex items-center justify-between relative">
         {/* Mobile Menu Button */}
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden text-white focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 h-9 w-9"
+          className="md:hidden text-white focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 h-9 w-9 z-10"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-expanded={isMenuOpen}
           aria-label={isMenuOpen ? "Zapri meni" : "Odpri meni"}
         >
           {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>
+
+
+        <div className="absolute left-1/2 transform -translate-x-1/2 md:hidden">
+          <Image
+            src="/images/logos/intenia-logo-2.png"
+            alt="Intenia Engineering Logo"
+            width={200}
+            height={40}
+            className="h-5 w-auto"
+            priority
+          />
+        </div>
+
+
+        <DesktopNav />
       </div>
 
       {/* Mobile Menu */}

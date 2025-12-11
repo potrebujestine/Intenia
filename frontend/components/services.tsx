@@ -122,7 +122,7 @@ export default function Services() {
                         />
                       </div>
                     ) : service.images.length === 2 ? (
-                      <div className="grid grid-cols-2 gap-3 h-[300px] md:h-[450px]">
+                      <div className="grid grid-rows-2 gap-3 h-[300px] md:h-[450px]">
                         {service.images.map((img: string, imgIndex: number) => (
                           <div key={imgIndex} className="relative w-full h-full overflow-hidden rounded-lg shadow-lg">
                             <Image
@@ -133,7 +133,7 @@ export default function Services() {
                               placeholder="blur"
                               blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
                               className="object-cover hover:scale-105 transition-transform duration-700"
-                              sizes="(max-width: 768px) 50vw, 25vw"
+                              sizes="(max-width: 768px) 100vw, 50vw"
                             />
                           </div>
                         ))}

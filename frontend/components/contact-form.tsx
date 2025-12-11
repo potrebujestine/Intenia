@@ -136,7 +136,7 @@ export default function ContactForm() {
                       </h4>
                     </div>
                     <div className="w-full lg:w-2/3 lg:pl-4 xl:pl-8 2xl:pl-20">
-                      <form onSubmit={handleSubmit} className="inquiry-submit">
+                      <form id="contactForm" onSubmit={handleSubmit} className="inquiry-submit">
                         <input
                           type="text"
                           name="website"
@@ -349,6 +349,7 @@ export default function ContactForm() {
                     </svg>
                     <button
                       type="submit"
+                      form="contactForm"
                       disabled={isSubmitting}
                       className="inline-flex relative group outline-none focus:outline-none"
                       style={{ filter: "url(#buttonFilter)" }}

@@ -29,10 +29,9 @@ export default function DesktopNav() {
   const isHomePage = pathname === "/"
   const showLogo = !isHomePage || isScrolled
 
-  // Handle scroll to show/hide logo
   useEffect(() => {
     const handleScroll = () => {
-      const headerHeight = 60 // Header height in pixels
+      const headerHeight = 60
       setIsScrolled(window.scrollY > headerHeight)
     }
 
