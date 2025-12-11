@@ -18,7 +18,7 @@ export default function Services() {
   const services = wpServices.map((service: any) => ({
     id: service.id,
     name: service.service_title || service.title.rendered,
-    description: service.short_description || service.content.rendered.replace(/<[^>]*>?/gm, "").trim(),
+    description: service.short_description || service.content.rendered || "",
     image: service.image?.guid || "/images/placeholder.png",
     category: service.acf?.category || "Storitve",
   }))
@@ -97,9 +97,10 @@ export default function Services() {
                         {service.name}
                       </h3>
                     </div>
-                    <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl">
-                      {service.description}
-                    </p>
+                    <p
+                      className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl"
+                      dangerouslySetInnerHTML={{ __html: service.description }}
+                    />
                   </div>
 
                   <div className="flex-1 order-1 md:order-2 w-full">
