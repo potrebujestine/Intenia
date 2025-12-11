@@ -267,3 +267,9 @@ html {
   display: none;
   /* Chrome, Safari and Opera */
 }
+
+.prose strong {
+  font-size: 1.15em;
+  font-weight: 700;
+  color: white;
+}

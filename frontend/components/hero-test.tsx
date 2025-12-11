@@ -38,7 +38,7 @@ export default function HeroTest() {
               <p className="mb-6">{title || ""}</p>
               <Button
                 onClick={() => {
-                  document.getElementById("services")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  document.getElementById("products")?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
                 className="bg-brand-primary hover:bg-brand-primary-dark text-white h-12 px-8 text-base rounded-full group mt-6"
               >

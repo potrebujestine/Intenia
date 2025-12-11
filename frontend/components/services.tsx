@@ -52,7 +52,7 @@ export default function Services() {
   )
 
   return (
-    <section id="services" className="relative bg-black overflow-hidden" aria-labelledby="services-heading">
+    <section className="relative bg-black overflow-hidden" aria-labelledby="services-heading">
       <div className="absolute inset-0 z-0" aria-hidden="true">
         <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-brand-primary/10 rounded-full blur-[100px]"></div>
         <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-brand-primary-light/10 rounded-full blur-[100px]"></div>
@@ -102,7 +102,7 @@ export default function Services() {
                       </h3>
                     </div>
                     <p
-                      className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl"
+                      className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl prose prose-invert"
                       dangerouslySetInnerHTML={{ __html: service.description }}
                     />
                   </div>
