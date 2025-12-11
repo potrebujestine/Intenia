@@ -150,9 +150,9 @@ export default function ProductsClient() {
                         {product.category}
                       </span> */}
                     </div>
-                    <h3 className="text-lg sm:text-xl font-bold mb-2 group-hover:text-brand-primary-light transition-colors">
+                    <h2 className="text-lg sm:text-xl font-bold mb-2 group-hover:text-brand-primary-light transition-colors">
                       {product.name}
-                    </h3>
+                    </h2>
                     <p
                       className="text-sm sm:text-base text-white/70 mb-4 flex-grow"
                       dangerouslySetInnerHTML={{ __html: product.description }}

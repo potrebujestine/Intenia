@@ -131,9 +131,9 @@ export default function ContactForm() {
                       <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-6 text-black">
                         {t("title")}
                       </h2>
-                      <h4 className="text-black hidden lg:block text-lg">
+                      <h3 className="text-black hidden lg:block text-lg">
                         {t("subtitle")}
-                      </h4>
+                      </h3>
                     </div>
                     <div className="w-full lg:w-2/3 lg:pl-4 xl:pl-8 2xl:pl-20">
                       <form id="contactForm" onSubmit={handleSubmit} className="inquiry-submit">

@@ -107,7 +107,10 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
 
         <div className="pt-3 border-t border-white/10 mt-2">
           <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
-            <SelectTrigger className="w-full h-10 bg-white/5 border-white/10 text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-200 [&>span:first-of-type]:hidden focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus:outline-none focus:border-white/10">
+            <SelectTrigger
+              className="w-full h-10 bg-white/5 border-white/10 text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-200 [&>span:first-of-type]:hidden focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus:outline-none focus:border-white/10"
+              aria-label="Select language"
+            >
               <SelectValue />
               <div className="flex items-center gap-2">
                 <span>{currentLanguage.flag}</span>

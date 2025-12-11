@@ -51,7 +51,12 @@ export function useWPData(endpoint: string) {
         const url = `https://wp.intenia-engineering.si/wp-json/wp/v2/${endpoint}?lang=${selectedLanguage}&_embed`
 
 
-        const response = await fetch(url)
+        const response = await fetch(url, {
+          next: { revalidate: 3600 },
+          headers: {
+            'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
+          },
+        });
         console.log("Response status:", response.status, response.statusText)
 
         if (!response.ok) {
