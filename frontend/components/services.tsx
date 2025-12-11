@@ -19,7 +19,11 @@ export default function Services() {
     id: service.id,
     name: service.service_title || service.title.rendered,
     description: service.short_description || service.content.rendered || "",
-    image: service.image?.guid || "/images/placeholder.png",
+    images: Array.isArray(service.image)
+      ? service.image.map((img: any) => img?.guid || "/images/placeholder.png")
+      : service.image?.[0]?.guid
+        ? [service.image[0].guid]
+        : ["/images/placeholder.png"],
     category: service.acf?.category || "Storitve",
   }))
 
@@ -104,18 +108,66 @@ export default function Services() {
                   </div>
 
                   <div className="flex-1 order-1 md:order-2 w-full">
-                    <div className="relative h-[300px] md:h-[450px] w-full overflow-hidden rounded-lg shadow-lg">
-                      <Image
-                        src={service.image}
-                        alt={service.name}
-                        fill
-                        priority={index < 2}
-                        placeholder="blur"
-                        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
-                        className="object-cover hover:scale-105 transition-transform duration-700"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                    </div>
+                    {service.images.length === 1 ? (
+                      <div className="relative h-[300px] md:h-[450px] w-full overflow-hidden rounded-lg shadow-lg">
+                        <Image
+                          src={service.images[0]}
+                          alt={service.name}
+                          fill
+                          priority={index < 2}
+                          placeholder="blur"
+                          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                          className="object-cover hover:scale-105 transition-transform duration-700"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                      </div>
+                    ) : service.images.length === 2 ? (
+                      <div className="grid grid-cols-2 gap-3 h-[300px] md:h-[450px]">
+                        {service.images.map((img: string, imgIndex: number) => (
+                          <div key={imgIndex} className="relative w-full h-full overflow-hidden rounded-lg shadow-lg">
+                            <Image
+                              src={img}
+                              alt={`${service.name} ${imgIndex + 1}`}
+                              fill
+                              priority={index < 2 && imgIndex === 0}
+                              placeholder="blur"
+                              blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                              className="object-cover hover:scale-105 transition-transform duration-700"
+                              sizes="(max-width: 768px) 50vw, 25vw"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    ) : service.images.length >= 3 ? (
+                      <div className="grid grid-cols-2 gap-3 h-[300px] md:h-[450px]">
+                        <div className="relative row-span-2 overflow-hidden rounded-lg shadow-lg">
+                          <Image
+                            src={service.images[0]}
+                            alt={`${service.name} 1`}
+                            fill
+                            priority={index < 2}
+                            placeholder="blur"
+                            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                            className="object-cover hover:scale-105 transition-transform duration-700"
+                            sizes="(max-width: 768px) 50vw, 25vw"
+                          />
+                        </div>
+                        {service.images.slice(1, 3).map((img: string, imgIndex: number) => (
+                          <div key={imgIndex + 1} className="relative w-full h-full overflow-hidden rounded-lg shadow-lg">
+                            <Image
+                              src={img}
+                              alt={`${service.name} ${imgIndex + 2}`}
+                              fill
+                              priority={index < 2 && imgIndex === 0}
+                              placeholder="blur"
+                              blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                              className="object-cover hover:scale-105 transition-transform duration-700"
+                              sizes="(max-width: 768px) 50vw, 25vw"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>
