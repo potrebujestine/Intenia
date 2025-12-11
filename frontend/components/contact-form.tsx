@@ -137,7 +137,6 @@ export default function ContactForm() {
                     </div>
                     <div className="w-full lg:w-2/3 lg:pl-4 xl:pl-8 2xl:pl-20">
                       <form onSubmit={handleSubmit} className="inquiry-submit">
-                        {/* Honeypot field - hidden from users but visible to bots */}
                         <input
                           type="text"
                           name="website"

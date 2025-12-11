@@ -22,7 +22,7 @@ export default function Products() {
   }).map((product: any) => ({
     id: product.id,
     name: product.products_title || product.title.rendered,
-    description: product.short_description || product.content.rendered.replace(/<[^>]*>?/gm, "").trim(),
+    description: product.short_description || product.content.rendered || "",
     image: product.image?.guid || "/images/placeholder.png",
     category: product.acf?.category || "Proizvodnja",
   }))
@@ -129,9 +129,10 @@ export default function Products() {
                   <h2 className="text-2xl sm:text-3xl font-bold mb-2 ">
                     {product.name}
                   </h2>
-                  <p className="text-sm sm:text-base text-white/70 mb-4 flex-grow">
-                    {product.description}
-                  </p>
+                  <p
+                    className="text-sm sm:text-base text-white/70 mb-4 flex-grow"
+                    dangerouslySetInnerHTML={{ __html: product.description || "" }}
+                  />
                 </div>
               </motion.div>
             ))}
