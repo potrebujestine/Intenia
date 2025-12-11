@@ -6,12 +6,15 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
 import DesktopNav from "./DesktopNav"
 import MobileNav from "./MobileNav"
 
 export default function ModernHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
+  const isHomePage = pathname === "/"
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,20 +57,20 @@ export default function ModernHeader() {
           {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>
 
-
-        <div className="absolute left-1/2 transform -translate-x-1/2 md:hidden">
-          <Link href="/">
-            <Image
-              src="/images/logos/intenia-logo-2.png"
-              alt="Intenia Engineering Logo"
-              width={200}
-              height={40}
-              className="h-5 w-auto"
-              priority
-            />
-          </Link>
-        </div>
-
+        {!isHomePage && (
+          <div className="absolute left-1/2 transform -translate-x-1/2 md:hidden">
+            <Link href="/">
+              <Image
+                src="/images/logos/intenia-logo-2.png"
+                alt="Intenia Engineering Logo"
+                width={200}
+                height={40}
+                className="h-5 w-auto"
+                priority
+              />
+            </Link>
+          </div>
+        )}
 
         <DesktopNav />
       </div>
