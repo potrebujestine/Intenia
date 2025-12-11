@@ -117,11 +117,13 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
                       sizes="100vw"
                       priority
                     />
+                    {/* 
                     {image.title && (
                       <div className="absolute bottom-4 left-0 right-0 text-center text-white/90 bg-black/50 p-2 rounded backdrop-blur-md mx-auto max-w-md">
                         {image.title}
                       </div>
-                    )}
+                    )} 
+                    */}
                   </div>
                 </div>
               ))}
