@@ -154,7 +154,7 @@ export default function AboutUs() {
                       {firstSection.heading || firstSection.title?.rendered || "O nas"}
                     </h2>
                     <div
-                      className="text-sm sm:text-base md:text-lg text-white/60 mb-8 lg:mb-12"
+                      className="text-sm sm:text-base md:text-lg text-white/60 mb-8 lg:mb-12 prose prose-invert"
                       dangerouslySetInnerHTML={{ __html: firstSection.description || firstSection.content?.rendered || "" }}
                     />
                   </>
@@ -188,7 +188,7 @@ export default function AboutUs() {
                       {section.heading || section.title?.rendered || ""}
                     </h3>
                     <div
-                      className="text-base sm:text-lg text-white/70 [&>p]:mb-6 [&>p:last-child]:mb-0"
+                      className="text-base sm:text-lg text-white/70 [&>p]:mb-6 [&>p:last-child]:mb-0 prose prose-invert"
                       dangerouslySetInnerHTML={{ __html: section.description || section.content?.rendered || "" }}
                     />
                     {Number(section.order) === 4 && (
