@@ -268,8 +268,9 @@ html {
   /* Chrome, Safari and Opera */
 }
 
-.prose strong {
+.prose strong,
+.prose.prose-invert strong {
   font-size: 1.05em;
   font-weight: 700;
-  color: white;
+  color: white !important;
 }

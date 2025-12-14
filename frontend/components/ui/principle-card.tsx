@@ -13,7 +13,7 @@ export function PrincipleCard({ icon: Icon, title, description }: PrincipleCardP
       <div className="w-12 h-12 rounded-full bg-brand-primary/20 flex items-center justify-center mb-6">
         <Icon className="w-6 h-6 text-brand-primary" />
       </div>
-      <h4 className="text-xl font-bold text-white mb-4">{title}</h4>
+      <h3 className="text-xl font-bold text-white mb-4">{title}</h3>
       <p className="text-white/70">{description}</p>
     </div>
   );
