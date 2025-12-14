@@ -221,7 +221,7 @@ export default function AboutUs() {
             </>
           )}
           <div className="mb-20 lg:mb-32">
-            <h2 className="text-3xl sm:text-3xl lg:text-4xl font-bold text-white mb-12 text-center">{t("heading")}</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-12 text-center">{t("heading")}</h2>
             {principlesLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[1, 2, 3].map((i) => (

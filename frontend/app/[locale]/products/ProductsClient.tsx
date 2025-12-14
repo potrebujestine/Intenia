@@ -102,10 +102,10 @@ export default function ProductsClient() {
             transition={{ duration: 0.5 }}
             className="text-center mb-8 sm:mb-12"
           >
-            <h1 id="products-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
+            <h1 id="products-heading" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3">
               {header}
             </h1>
-            <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-white/70 max-w-2xl mx-auto">
               {description}
             </p>
           </motion.div>
