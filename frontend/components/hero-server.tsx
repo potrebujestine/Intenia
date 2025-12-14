@@ -48,7 +48,7 @@ export default function HeroServer() {
             fetchPriority="high"
           />
         </div>
-        <div className="text-center leading-tight items-center justify-center mt-12 sm:mt-20 md:mt-28 lg:mt-48">
+        <div className="text-center leading-tight items-center justify-center mt-36 sm:mt-42 md:mt-48 lg:mt-48">
           <h1 className="text-2xl sm:text-3xl font-bold mb-4">{title || "Intenia Engineering"}</h1>
           <HeroClient buttonText={buttonText} />
         </div>

@@ -29,7 +29,7 @@ export default function Services() {
 
 
   const ServiceSkeleton = ({ index }: { index: number }) => (
-    <div className={`w-full py-16 md:py-24 ${index % 2 === 0 ? 'bg-white/5' : 'bg-transparent'}`}>
+    <div className={`w-full sm:py-8 py-16 md:py-24 ${index % 2 === 0 ? 'bg-white/5' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
           <div className="flex-1 order-1 md:order-1 text-left">
@@ -66,10 +66,10 @@ export default function Services() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 id="services-heading" className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-6 text-white">
+          <h2 id="services-heading" className="text-3xl  md:text-4xl lg:text-6xl font-bold mb-6 text-white">
             {header}
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-base md:text-lg text-white/70 max-w-2xl mx-auto">
             {description}
           </p>
         </motion.div>
@@ -97,12 +97,12 @@ export default function Services() {
                   <div className="flex-1 order-1 md:order-1 text-left">
                     <div className="flex items-start gap-4 mb-6">
                       <span className="text-brand-primary text-4xl md:text-5xl font-black tracking-tighter leading-none ">III</span>
-                      <h3 className="text-3xl md:text-4xl font-bold uppercase text-white leading-tight">
+                      <h3 className="text-2xl md:text-4xl font-bold uppercase text-white leading-tight">
                         {service.name}
                       </h3>
                     </div>
                     <p
-                      className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl prose prose-invert"
+                      className="text-md text-white/70 leading-relaxed mb-8 max-w-xl prose prose-invert"
                       dangerouslySetInnerHTML={{ __html: service.description }}
                     />
                   </div>
@@ -176,7 +176,7 @@ export default function Services() {
         )}
       </div>
 
-      <div className="container mx-auto px-4 py-16 text-center relative z-10">
+      <div className=" hidden sm:block container mx-auto px-4 py-16 text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
