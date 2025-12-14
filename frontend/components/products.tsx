@@ -81,10 +81,10 @@ export default function Products() {
           transition={{ duration: 0.5 }}
           className="text-center mb-8 sm:mb-12"
         >
-          <h2 id="products-heading" className="text-3xl  md:text-4xl lg:text-6xl font-bold mb-6 text-white">
+          <h2 id="products-heading" className="text-3xl  md:text-4xl lg:text-5xl font-bold mb-6 text-white">
             {header}
           </h2>
-          <p className="text-lg sm:text-base md:text-lg text-white/70 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-white/70 max-w-2xl mx-auto">
             {description}
           </p>
         </motion.div>
@@ -130,7 +130,7 @@ export default function Products() {
                     {product.name}
                   </h2>
                   <p
-                    className="text-md sm:text-base text-white/70 mb-4 flex-grow"
+                    className="text-sm sm:text-base text-white/70 mb-4 flex-grow"
                     dangerouslySetInnerHTML={{ __html: product.description || "" }}
                   />
                 </div>

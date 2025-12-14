@@ -154,7 +154,7 @@ export default function ProductsClient() {
                       {product.name}
                     </h2>
                     <p
-                      className="text-md sm:text-base text-white/70 mb-4 flex-grow"
+                      className="text-base text-white/70 mb-4 flex-grow leading-relaxed"
                       dangerouslySetInnerHTML={{ __html: product.description }}
                     />
                   </div>

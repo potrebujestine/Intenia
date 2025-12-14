@@ -150,11 +150,11 @@ export default function AboutUs() {
               <div className="relative">
                 {firstSection && (
                   <>
-                    <h2 className="text-3xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-6 text-white">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">
                       {firstSection.heading || firstSection.title?.rendered || "O nas"}
                     </h2>
                     <div
-                      className="text-md sm:text-base  text-white/60 mb-8 lg:mb-12 prose prose-invert"
+                      className="text-base  text-white/60 mb-8 lg:mb-12 prose prose-invert"
                       dangerouslySetInnerHTML={{ __html: firstSection.description || firstSection.content?.rendered || "" }}
                     />
                   </>
@@ -188,7 +188,7 @@ export default function AboutUs() {
                       {section.heading || section.title?.rendered || ""}
                     </h3>
                     <div
-                      className="text-base sm:text-md text-white/70 [&>p]:mb-6 [&>p:last-child]:mb-0 prose prose-invert"
+                      className="text-base text-white/70 [&>p]:mb-6 [&>p:last-child]:mb-0 prose prose-invert"
                       dangerouslySetInnerHTML={{ __html: section.description || section.content?.rendered || "" }}
                     />
                     {Number(section.order) === 4 && (

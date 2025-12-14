@@ -129,7 +129,7 @@ export default function ContactForm() {
                         <span className="absolute w-1.5 h-1.5 bg-brand-primary rounded-full left-0 top-1/2 -translate-y-1/2"></span>
                         <span className="text-black">{t("label")}</span>
                       </p>
-                      <h2 className="text-3xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-6 text-black">
+                      <h2 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-black">
                         {t("title")}
                       </h2>
                       <h3 className="text-black hidden lg:block text-lg">
@@ -273,7 +273,7 @@ export default function ContactForm() {
                               htmlFor="ContactTerms"
                             >
                               {t("termsText")}{" "}
-                              <Link href="/cookies" className="underline hover:text-black">
+                              <Link href="/cookies" className="underline hover:text-black duration-200">
                                 {t("privacyAndCookies")}
                               </Link>
                               .
