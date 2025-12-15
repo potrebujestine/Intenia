@@ -33,6 +33,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const description = descriptions[locale] || descriptions.sl;
   const ogLocale = ogLocales[locale] || ogLocales.sl;
 
+  const alternates = {
+    canonical: `https://www.intenia-engineering.si/${locale}`,
+    languages: {
+      'sl': 'https://www.intenia-engineering.si/sl',
+      'en': 'https://www.intenia-engineering.si/en',
+      'fr': 'https://www.intenia-engineering.si/fr',
+    },
+  };
+
   return {
     title: {
       default: "Intenia Engineering",
@@ -43,6 +52,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     authors: [{ name: "Intenia Engineering" }],
     creator: "Intenia Engineering",
     publisher: "Intenia Engineering",
+    alternates,
     robots: {
       index: true,
       follow: true,

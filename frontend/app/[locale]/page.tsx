@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  
+
   const descriptions: Record<string, string> = {
     sl: "Intenia Engineering d.o.o., s sedežem v Medvodah, Slovenija, se odlično odziva pri zagotavljanju inženirskih, konzultacijskih, proizvodnih in posredovalnih storitev. Naša misija je zagotavljati inovativne rešitve, ki presegajo pričakovanja strank.",
     en: "Intenia Engineering d.o.o., based in Medvode, Slovenia, excels in providing engineering, consulting, manufacturing and intermediary services. Our mission is to provide innovative solutions that exceed customer expectations.",
@@ -16,7 +16,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     description: descriptions[locale] || descriptions.sl,
     alternates: {
-      canonical: '/',
+      canonical: `https://www.intenia-engineering.si/${locale}`,
+      languages: {
+        'sl': 'https://www.intenia-engineering.si/sl',
+        'en': 'https://www.intenia-engineering.si/en',
+        'fr': 'https://www.intenia-engineering.si/fr',
+      },
     },
     openGraph: {
       description: descriptions[locale] || descriptions.sl,
