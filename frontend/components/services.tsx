@@ -102,7 +102,7 @@ export default function Services() {
                       </h3>
                     </div>
                     <p
-                      className="text-base text-white/70 mb-4 flex-grow leading-relaxed"
+                      className="text-base text-white/70 mb-4 flex-grow leading-relaxed prose prose-invert"
                       dangerouslySetInnerHTML={{ __html: service.description }}
                     />
                   </div>
