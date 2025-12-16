@@ -1,6 +1,7 @@
 {
-  "buildCommand": "cd frontend && npm run build",
-  "installCommand": "cd frontend && npm install",
+  "buildCommand": "cd frontend && yarn build",
+  "installCommand": "cd frontend && yarn install",
+  "outputDirectory": "frontend/.next",
   "framework": "nextjs",
   "rewrites": [
     {
