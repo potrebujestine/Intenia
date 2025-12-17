@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import https from 'https';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 function fetchWithHttps(url: string, maxRedirects = 5): Promise<any> {
   return new Promise((resolve, reject) => {
@@ -57,7 +57,12 @@ export async function GET(request: Request) {
     const data = await fetchWithHttps(
       `https://wp.intenia-engineering.si/wp-json/wp/v2/new-products?lang=${lang}&_embed`
     );
-    return NextResponse.json(data);
+
+    return NextResponse.json(data, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+      },
+    });
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message || 'Failed to fetch products' },

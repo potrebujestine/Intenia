@@ -39,13 +39,15 @@ const ContactForm = dynamic(() => import("@/components/contact-form"));
 
 import { ScrollRestoration, LazyLoad } from "@/components/client-wrappers";
 
-export default async function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+
   return (
     <div className="min-h-screen bg-black px-0 sm:px-4 text-white">
       <ScrollRestoration />
       <ScrollToTop />
       <ScrollToContact />
-      <HeroServer />
+      <HeroServer locale={locale} />
       <Services />
       <Products />
 
