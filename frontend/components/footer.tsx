@@ -168,10 +168,10 @@ export default function ModernFooter() {
               </Link> */}
               <div className="flex items-center space-x-2">
                 <span>{t("followUs")}</span>
-                <Link target="_blank" href="https://www.linkedin.com/company/intenia-engineering" className="text-white hover:text-white/80 transition-colors relative bottom-[3.5px]">
+                <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/company/intenia-engineering" className="text-white hover:text-white/80 transition-colors relative bottom-[3.5px]">
                   <Linkedin className="h-5 w-5" />
                   <span className="sr-only">LinkedIn</span>
-                </Link>
+                </a>
               </div>
 
               {/*  <Link href="#" className="text-white/50 hover:text-white transition-colors">
