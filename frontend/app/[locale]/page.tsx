@@ -8,9 +8,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
 
   const descriptions: Record<string, string> = {
-    sl: "Intenia Engineering d.o.o., s sedežem v Medvodah, Slovenija, se odlično odziva pri zagotavljanju inženirskih, konzultacijskih, proizvodnih in posredovalnih storitev. Naša misija je zagotavljati inovativne rešitve, ki presegajo pričakovanja strank.",
-    en: "Intenia Engineering d.o.o., based in Medvode, Slovenia, excels in providing engineering, consulting, manufacturing and intermediary services. Our mission is to provide innovative solutions that exceed customer expectations.",
-    fr: "Intenia Engineering d.o.o., basée à Medvode, en Slovénie, excelle dans la fourniture de services d'ingénierie, de conseil, de fabrication et d'intermédiation. Notre mission est de fournir des solutions innovantes qui dépassent les attentes des clients.",
+    sl: "Intenia Engineering načrtuje, izdeluje in namešča opremo, prilagojeno vašim potrebam, ter nudi proizvodnjo delov in sklopov z razpoložljivimi presežnimi proizvodnimi kapacitetami.",
+    en: "Intenia Engineering designs, builds and installs equipment tailored to your needs and provides excess-capacity manufacturing for parts & assemblies.",
+    fr: "Intenia Engineering conçoit, fabrique et installe des équipements sur mesure adaptés à vos besoins et propose des capacités de fabrication excédentaires pour des pièces et des assemblages.",
   };
 
   return {
