@@ -66,12 +66,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
     icons: {
       icon: [
-        { url: "/favicon.svg", type: "image/svg+xml" },
+        { url: "/icon.svg", type: "image/svg+xml" },
+        { url: "/icon.ico", sizes: "any" },
         { url: "/images/icons/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-        { url: "/images/icons/favicon.ico", sizes: "any" },
       ],
-      shortcut: "/favicon.svg",
-      apple: "/images/icons/apple-touch-icon.png",
+      shortcut: "/icon.svg",
+      apple: "/apple-icon.png",
     },
     manifest: "/site.webmanifest",
     generator: "Intenia Engineering",
@@ -119,6 +119,9 @@ export default async function RootLayout(props: {
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/icon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
         <link rel="preconnect" href="https://wp.intenia-engineering.si" />
         <link rel="dns-prefetch" href="https://wp.intenia-engineering.si" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
