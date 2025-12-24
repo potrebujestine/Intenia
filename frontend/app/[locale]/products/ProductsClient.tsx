@@ -8,7 +8,7 @@ import { useWPData } from "@/hooks/useWPData"
 const ContactForm = dynamic(() => import("@/components/contact-form"), {
   loading: () => <div className="min-h-[400px] bg-black" />,
 })
-//test
+
 interface Product {
   id: number;
   name: string;
