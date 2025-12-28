@@ -1,19 +1,23 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+
 import { motion } from "framer-motion";
 import { Users, Target, Network, Lightbulb, Leaf, Shield } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useWPData } from "@/hooks/useWPData";
-import { PrincipleCard } from "@/components/ui/principle-card";
 
-export default function AboutUs() {
+import { PrincipleCard } from "@/components/ui/principle-card";
+import { useEffect, useState } from "react";
+
+interface AboutUsClientProps {
+  facts: any[]
+  sections: any[]
+  principles: any[]
+}
+
+export default function AboutUsClient({ facts, sections, principles }: AboutUsClientProps) {
   const t = useTranslations("principles");
   const tContact = useTranslations("contact");
-  const { data: aboutUsFacts, loading, error } = useWPData("about-us-carousel")
-  const { data: aboutUsSections, loading: sectionsLoading } = useWPData("about-us-section")
-  const { data: aboutUsPrinciples, loading: principlesLoading } = useWPData("principles")
   const [currentSlide, setCurrentSlide] = useState(0);
   const [progress, setProgress] = useState(0);
 
@@ -23,7 +27,7 @@ export default function AboutUs() {
     return match ? match[1] : null;
   };
 
-  const sortedSections = [...aboutUsSections].sort((a, b) => {
+  const sortedSections = [...sections || []].sort((a, b) => {
     const orderA = Number(a.order) || 0;
     const orderB = Number(b.order) || 0;
     return orderA - orderB;
@@ -34,7 +38,7 @@ export default function AboutUs() {
 
   const principleIcons = [Leaf, Shield, Target];
 
-  const sortedPrinciples = [...aboutUsPrinciples].sort((a, b) => {
+  const sortedPrinciples = [...principles || []].sort((a, b) => {
     const orderA = Number(a.order) || 0;
     const orderB = Number(b.order) || 0;
     return orderA - orderB;
@@ -63,11 +67,11 @@ export default function AboutUs() {
   }, [currentSlide]);
 
   useEffect(() => {
-    if (aboutUsFacts.length > 0 && progress >= 100) {
-      setCurrentSlide((prev) => (prev + 1) % aboutUsFacts.length);
+    if (facts?.length > 0 && progress >= 100) {
+      setCurrentSlide((prev) => (prev + 1) % facts?.length || 0);
       setProgress(0);
     }
-  }, [progress, aboutUsFacts.length]);
+  }, [progress, facts?.length || 0]);
 
 
   useEffect(() => {
@@ -96,12 +100,12 @@ export default function AboutUs() {
               <div
                 className="relative w-full flex overflow-hidden bg-black/90 backdrop-blur-sm border border-white/10 rounded-[15px] aspect-[4/5] lg:aspect-[3/4] lg:rounded-[29px] cursor-pointer"
                 onClick={() => {
-                  setCurrentSlide((prev) => (prev + 1) % aboutUsFacts.length);
+                  setCurrentSlide((prev) => (prev + 1) % facts.length);
                   setProgress(0);
                 }}
               >
                 <div className="z-20 w-full flex justify-evenly gap-2 absolute bottom-8 left-0 px-8 pointer-events-none">
-                  {aboutUsFacts.map((_, index) => (
+                  {facts?.map((_, index) => (
                     <div
                       key={index}
                       className="h-0.5 flex-1 relative overflow-hidden bg-white/30"
@@ -119,7 +123,7 @@ export default function AboutUs() {
                 </div>
 
                 <div className="absolute top-0 left-0 w-full h-full rounded-[29px]">
-                  {aboutUsFacts.map((fact, index) => {
+                  {facts?.map((fact, index) => {
                     return (
                       <motion.div
                         key={index}
@@ -222,7 +226,7 @@ export default function AboutUs() {
           )}
           <div className="mb-20 lg:mb-32">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-12 text-center">{t("heading")}</h2>
-            {principlesLoading ? (
+            {principles?.length === 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-16 animate-pulse">

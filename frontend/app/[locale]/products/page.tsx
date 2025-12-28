@@ -1,11 +1,13 @@
 import ProductsClient from './ProductsClient';
+import { getLocale } from "next-intl/server";
+import { getWPData, getWPSection } from "@/lib/wp-ssr";
 import type { Metadata } from 'next';
 
 export const revalidate = 3600;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  
+
   const descriptions: Record<string, string> = {
     sl: "Oglejte si našo paleto inženirskih produktov in rešitev. Intenia Engineering ponuja kakovostne izdelke, prilagojene vašim potrebam.",
     en: "Explore our range of engineering products and solutions. Intenia Engineering offers quality products tailored to your needs.",
@@ -36,5 +38,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export default async function ProductsPage() {
-  return <ProductsClient />;
+  const locale = await getLocale();
+  const [products, productsSection] = await Promise.all([
+    getWPData("new-products", { locale, revalidate }),
+    getWPSection("new-products-section", { locale, revalidate }),
+  ]);
+
+  return <ProductsClient products={products} section={productsSection} />;
 }

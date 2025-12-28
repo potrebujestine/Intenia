@@ -5,6 +5,7 @@ import ScrollToTop from "@/components/scroll-to-top";
 import ScrollToContact from "@/components/scroll-to-contact";
 import type { Metadata } from 'next';
 import ProductsServer from "@/components/products-server";
+import AboutUsServer from "@/components/about-us-server";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -50,7 +51,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-const AboutUs = dynamic(() => import("@/components/about-us"));
 const ContactForm = dynamic(() => import("@/components/contact-form"));
 
 import { ScrollRestoration, LazyLoad } from "@/components/client-wrappers";
@@ -66,7 +66,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <HeroServer locale={locale} />
       <ServicesServer />
       <ProductsServer />
-      <AboutUs />
+      <AboutUsServer />
       <ContactForm />
     </div>
   );

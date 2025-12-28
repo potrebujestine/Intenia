@@ -3,25 +3,17 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import dynamic from "next/dynamic"
-import { useWPData } from "@/hooks/useWPData"
 
 const ContactForm = dynamic(() => import("@/components/contact-form"), {
   loading: () => <div className="min-h-[400px] bg-black" />,
 })
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  category: string;
+interface ProductsClientProps {
+  products: any[];
+  section: any;
 }
 
-export default function ProductsClient() {
-  const { data: wpProducts, loading, error } = useWPData("new-products")
-  const { data: wpProductsSection, loading: productsSectionLoading } = useWPData("new-products-section")
-
-  const productsSection = wpProductsSection?.[0]
+export default function ProductsClient({ products: wpProducts, section: productsSection }: ProductsClientProps) {
   const header = productsSection?.header
   const description = productsSection?.description
 
@@ -71,17 +63,6 @@ export default function ProductsClient() {
     </div>
   )
 
-  if (error) {
-    return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Napaka pri nalaganju produktov</h1>
-          <p className="text-white/70">Prosimo, poskusite znova pozneje.</p>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="min-h-screen bg-black text-white">
       <section
@@ -110,58 +91,47 @@ export default function ProductsClient() {
             </p>
           </motion.div>
 
-          {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <ProductSkeleton key={i} />
-              ))}
-            </div>
-          ) : (
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
-            >
-              {products.map((product, index) => (
-                <motion.div
-                  key={product.id}
-                  variants={itemVariants}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="group relative"
-                >
-                  <div className="absolute -inset-1 bg-gradient-to-r  to-brand-primary-light rounded-xl blur-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="relative   rounded-lg p-5 sm:p-6 h-full flex flex-col hover:border-brand-primary-light/50 transition-colors">
-                    <div className="mb-4">
-                      <div className="relative w-full h-96 mb-3 transition-transform duration-300 overflow-hidden">
-                        <Image
-                          src={product.image}
-                          alt={product.name}
-                          fill
-                          priority={index < 6}
-                          placeholder="blur"
-                          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
-                          className="object-cover"
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        />
-                      </div>
-                      {/*  <span className="text-xs text-brand-primary-light font-medium">
-                        {product.category}
-                      </span> */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+          >
+            {products.map((product, index) => (
+              <motion.div
+                key={product.id}
+                variants={itemVariants}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="group relative"
+              >
+                <div className="absolute -inset-1 bg-gradient-to-r  to-brand-primary-light rounded-xl blur-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative   rounded-lg p-5 sm:p-6 h-full flex flex-col hover:border-brand-primary-light/50 transition-colors">
+                  <div className="mb-4">
+                    <div className="relative w-full h-96 mb-3 transition-transform duration-300 overflow-hidden">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        priority={index < 6}
+                        placeholder="blur"
+                        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
                     </div>
-                    <h2 className="text-lg sm:text-2xl font-bold mb-2 ">
-                      {product.name}
-                    </h2>
-                    <p
-                      className="text-base text-white/70 mb-4 flex-grow leading-relaxed"
-                      dangerouslySetInnerHTML={{ __html: product.description }}
-                    />
                   </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
+                  <h2 className="text-lg sm:text-2xl font-bold mb-2 ">
+                    {product.name}
+                  </h2>
+                  <p
+                    className="text-base text-white/70 mb-4 flex-grow leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: product.description }}
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
