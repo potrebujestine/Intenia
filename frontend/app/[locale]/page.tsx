@@ -1,8 +1,10 @@
 import dynamic from "next/dynamic";
 import HeroServer from "@/components/hero-server";
+import ServicesServer from "@/components/services-server";
 import ScrollToTop from "@/components/scroll-to-top";
 import ScrollToContact from "@/components/scroll-to-contact";
 import type { Metadata } from 'next';
+import ProductsServer from "@/components/products-server";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -48,8 +50,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-const Products = dynamic(() => import("@/components/products"));
-const Services = dynamic(() => import("@/components/services"));
 const AboutUs = dynamic(() => import("@/components/about-us"));
 const ContactForm = dynamic(() => import("@/components/contact-form"));
 
@@ -64,8 +64,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <ScrollToTop />
       <ScrollToContact />
       <HeroServer locale={locale} />
-      <Services />
-      <Products />
+      <ServicesServer />
+      <ProductsServer />
       <AboutUs />
       <ContactForm />
     </div>
