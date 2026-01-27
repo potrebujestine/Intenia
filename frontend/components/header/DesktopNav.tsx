@@ -91,21 +91,21 @@ export default function DesktopNav() {
         <Link
           href={"/#o-nas" as any}
           onClick={(e) => handleAnchorClick(e, '#o-nas')}
-          className="text-white/80 hover:text-white transition-colors py-2 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 text-sm lg:text-base"
+          className="text-white/80 hover:text-white transition-colors py-2 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 text-sm lg:text-base whitespace-nowrap"
         >
           {t("about")}
         </Link>
 
         <Link
           href="/products"
-          className="text-white/80 hover:text-white transition-colors py-2 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 text-sm lg:text-base"
+          className="text-white/80 hover:text-white transition-colors py-2 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 text-sm lg:text-base whitespace-nowrap"
         >
           {t("products")}
         </Link>
 
         <Link
           href="/gallery"
-          className="text-white/80 hover:text-white transition-colors py-2 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 text-sm lg:text-base"
+          className="text-white/80 hover:text-white transition-colors py-2 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 text-sm lg:text-base whitespace-nowrap"
         >
           {t("gallery")}
         </Link>
@@ -113,7 +113,7 @@ export default function DesktopNav() {
         <Link
           href={"/#kontakt" as any}
           onClick={(e) => handleAnchorClick(e, '#kontakt')}
-          className="text-white/80 hover:text-white transition-colors py-2 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 text-sm lg:text-base"
+          className="text-white/80 hover:text-white transition-colors py-2 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-light/70 text-sm lg:text-base whitespace-nowrap"
         >
           {t("contact")}
         </Link>
