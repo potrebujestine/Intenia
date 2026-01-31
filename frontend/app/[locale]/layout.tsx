@@ -7,6 +7,7 @@ import { getMessages } from "next-intl/server"
 import ModernHeader from "@/components/header"
 import ModernFooter from "@/components/footer"
 import CookieNotification from "@/components/cookie-notification"
+import GoogleAnalytics from "@/components/gtag"
 
 const rajdhani = Rajdhani({
   subsets: ["latin"],
@@ -130,6 +131,7 @@ export default async function RootLayout(props: {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={`${rajdhani.className} bg-black text-white`} suppressHydrationWarning>
+        <GoogleAnalytics />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
