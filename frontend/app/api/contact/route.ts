@@ -158,6 +158,7 @@ export async function POST(req: NextRequest) {
         headers: {
           "Authorization": `Basic ${token}`,
           "Content-Type": "application/json",
+          "User-Agent": "Mozilla/5.0 (compatible; Next.js Server; +https://nextjs.org/)",
         },
         body: JSON.stringify(requestBody),
       }
