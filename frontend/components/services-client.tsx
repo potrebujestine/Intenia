@@ -1,7 +1,11 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
 import Image from "next/image"
+import { Link } from "@/routing"
+import { useTranslations } from "next-intl"
 
 interface ServicesClientProps {
   services: any[]
@@ -9,6 +13,7 @@ interface ServicesClientProps {
 }
 
 export default function ServicesClient({ services: wpServices, section: servicesSection }: ServicesClientProps) {
+  const t = useTranslations("products")
   const header = servicesSection?.header
   const description = servicesSection?.description
 
@@ -141,14 +146,19 @@ export default function ServicesClient({ services: wpServices, section: services
         ))}
       </div>
 
-      <div className=" hidden sm:block container mx-auto px-4 py-16 text-center relative z-10">
+      <div className="container mx-auto px-4 py-16 text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-
+          <Link href="/gallery">
+            <Button className="border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white bg-transparent h-12 px-8 text-base rounded-full group">
+              {t("pastProjects")}
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </section>
