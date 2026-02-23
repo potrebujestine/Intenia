@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export const revalidate = 3600;
-
 async function fetchFromWordPress(endpoint: string, lang: string): Promise<any> {
-  const url = `https://wp.intenia-engineering.si/wp-json/wp/v2/${endpoint}?lang=${lang}&_embed&per_page=100`;
+  const baseUrl = process.env.NEXT_PUBLIC_WP_URL;
+  const url = `${baseUrl}/${endpoint}?lang=${lang}&_embed&per_page=100`;
 
   const response = await fetch(url, {
-    next: { revalidate: 3600 },
+    next: {
+      revalidate: 3600,
+      tags: [endpoint, `locale:${lang}`]
+    },
     headers: {
       'User-Agent': 'Mozilla/5.0 (compatible; Next.js Server; +https://nextjs.org/)',
     },
@@ -43,4 +45,3 @@ export async function GET(
     );
   }
 }
-
