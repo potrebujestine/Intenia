@@ -18,7 +18,8 @@ export async function POST(req: Request) {
   }
 
   for (const t of tags) {
-    revalidateTag(t, "default");
+    // @ts-ignore - Next.js 16 requires 2 args, Next.js 15 requires 1. Vercel is on 15.
+    revalidateTag(t);
   }
 
   return NextResponse.json({

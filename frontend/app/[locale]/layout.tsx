@@ -125,8 +125,8 @@ export default async function RootLayout(props: {
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://wp.intenia-engineering.si" />
-        <link rel="dns-prefetch" href="https://wp.intenia-engineering.si" />
+        <link rel="preconnect" href={process.env.WP_DOMAIN} />
+        <link rel="dns-prefetch" href={process.env.WP_DOMAIN} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>

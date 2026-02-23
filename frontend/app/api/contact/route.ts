@@ -152,7 +152,7 @@ export async function POST(req: NextRequest) {
     };
 
     const res = await fetch(
-      "https://wp.intenia-engineering.si/wp-json/wp/v2/contact_submission",
+      `${process.env.WP_DOMAIN}/wp-json/wp/v2/contact_submission`,
       {
         method: "POST",
         headers: {

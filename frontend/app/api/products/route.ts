@@ -5,7 +5,7 @@ export const revalidate = 3600;
 export async function GET() {
   try {
     const response = await fetch(
-      "https://wp.intenia-engineering.si/wp-json/wp/v2/products",
+      `${process.env.WP_DOMAIN}/wp-json/wp/v2/products`,
       {
         next: { revalidate: 3600 },
         headers: {
